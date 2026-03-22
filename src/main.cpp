@@ -5,17 +5,21 @@
 int main() {
   metacar::SceneAPI api;
 
-  std::cout << "Waiting for simulator connection...\n";
+  std::cout << "等待仿真器连接...\n";
   api.connect();
-  std::cout << "Connected!\n";
+  std::cout << "已连接!\n";
+
+  // 获取静态数据
+  const auto &static_data = api.get_scene_static_data();
+  std::cout << "路线点数量: " << static_data.route.size() << "\n";
 
   while (auto msg = api.step()) {
     const auto &pose = msg->pose_gnss;
     double speed = msg->main_vehicle.speed;
 
-    std::cout << std::fixed << std::setprecision(2) << "pos=(" << pose.pos_x << ", " << pose.pos_y
+    std::cout << std::fixed << std::setprecision(2) << "位置=(" << pose.pos_x << ", " << pose.pos_y
               << ", " << pose.pos_z << ")  "
-              << "speed=" << speed << " m/s\n";
+              << "速度=" << speed << " m/s\n";
 
     metacar::VehicleControl ctrl;
     ctrl.throttle = 0.1;
@@ -23,6 +27,6 @@ int main() {
     api.set_vehicle_control(ctrl);
   }
 
-  std::cout << "Simulation ended.\n";
+  std::cout << "仿真结束。\n";
   return 0;
 }

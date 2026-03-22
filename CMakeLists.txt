@@ -19,4 +19,4 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(metacar)
 
 # ── Examples ───────────────────────────────────────────────────────
-add_subdirectory(example_basic)
+add_subdirectory(src)
