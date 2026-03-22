@@ -2,7 +2,15 @@
 #include <iomanip>
 #include <iostream>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 int main() {
+#ifdef _WIN32
+  SetConsoleOutputCP(CP_UTF8);
+#endif
+
   metacar::SceneAPI api;
 
   std::cout << "等待仿真器连接...\n";
